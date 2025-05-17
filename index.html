@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <title>Scroll on reload demo</title>
+	<meta charset="utf-8">
+	<style>
+	    html { scroll-padding-top: 50px; }
+        #scrollsdown {
+            line-height: 100%;
+            background-color: #00ff0022;
+        }
+
+        #scrollsup {
+            line-height: 150%;
+            background-color: #ff000022;
+        }
+
+        #scrollsdownlarge {
+            font-size: 7rem;
+            line-height: 50%;
+            background-color: #00ff0022;
+            margin: 2rem 0;
+        }
+
+
+
+        body { max-width: 70ch; }
+        #scroll-padding-reference {
+            position: fixed;
+            top: 50px;
+            right: 0px;
+            margin: 0px;
+            width: 100%;
+            text-align: right;
+            border-top: 1px #ff000055 solid;
+            span { background-color: lightgray; }
+        }
+	</style>
+</head>
+<body>
+
+    <div id="scroll-padding-reference"><span>scroll-padding-top boundary</span></div>
+
+    <p>
+        This example file demonstrates a page-scroll-on-reload issue that appears to be caused
+        by text elements straddling the border of scroll-padding-top. When a user reloads the
+        page in this situation, the page may scroll slightly depending on the font size and
+        line height of the text. The effect is more pronounced at larger font sizes and
+        far-from-default line heights.
+    </p>
+
+    <p>
+        This paragraph and the one above use the default styling. At 1080p, this
+        scroll-on-reload issue is not strong enough to cause trouble.
+    </p>
+
+    <p id="scrollsdown">
+        This paragraph has a line-height of 100%. This is slightly smaller than the
+        default line-height. If the page is reloaded while the scroll-padding-top
+        boundary is inside this paragraph, the view will scroll downwards by a small amount
+        (~1px on a 1080p monitor). Once the boundary has reached the bottom, the page will scroll
+        back to somewhere before this text. Further reloads may restart the process, even if
+        the page reset to a position where the boundary is outside of the text.
+    </p>
+
+    <p id="scrollsup">
+        This paragraph has a line-height of 150%. This is a bit larger than the
+        default line-height. If the page is reloaded while the scroll-padding-top
+        boundary is inside this paragraph, the view will scroll upwards by a small amount.
+    </p>
+
+    <p>At larger font sizes, each reload scrolls farther.</p>
+
+    <p id="scrollsdownlarge">
+        line-height: 50% and font-size: 7rem.
+    </p>
+
+    <p>Tested and reproduced on:
+        <ul>
+            <li>Dev Google Chrome 138.0.7166.2 (Linux)</li>
+            <li>Ungoogled Chromium 136.0.7103.92 (Linux)</li>
+            <li>Google Chrome 136.0.7103.125 (Android)</li>
+            <li>Brave (Chromium 136.0.7103.113) (Windows)</li>
+        </ul>
+    </p>
+
+    <div style="height: 2000px; margin-top: 1rem; padding: 0.5rem; background-color: #00000022;">
+        This div is here to simulate a large document to create a scroll bar.
+    </div>
+
+</body>
+</html>
